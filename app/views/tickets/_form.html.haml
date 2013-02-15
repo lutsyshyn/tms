@@ -1,0 +1,25 @@
+.span9
+  = form_for @ticket, html: { class: "form-horizontal" } do |f|
+    = render 'shared/error_messages', object: f.object
+    .control-group
+      = f.label :subject, class: "control-label"
+      .controls
+        = f.text_field :subject, class: "span6"
+    .control-group
+      = f.label :customer_email, class: "control-label"
+      .controls
+        = f.text_field :customer_email, class: "span6"
+    .control-group
+      = f.label :customer_name, class: "control-label"
+      .controls
+        = f.text_field :customer_name, class: "span6"
+    .control-group
+      = f.label :department_id, class: "control-label"
+      .controls
+        = f.collection_select :department_id, Department.all, :id, :name, {prompt: 'Please select'}, {class: "span6"}
+    .control-group
+      = f.label :body, class: "control-label"
+      .controls
+        = f.text_area :body, rows: "8", class: "span6"
+    .control-group
+      = f.submit 'Submit', class: "btn offset2"

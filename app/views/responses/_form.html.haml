@@ -1,0 +1,17 @@
+= form_for @response do |f|
+  = render 'shared/error_messages', object: f.object
+
+  .field
+    = f.label :text, 'Add response to ticket'
+    = f.text_area :text, rows: "8", class: "span9"
+  - if user_signed_in?
+    .field
+      = f.label :status_id, 'Change ticket status'
+      = f.collection_select :status_id, Status.all, :id, :name
+
+  = f.hidden_field :ticket_id
+  = f.hidden_field :user_id if user_signed_in?
+  = hidden_field_tag('reference', @ticket.reference)
+
+  .actions
+    = f.submit 'Add response and/or change status'

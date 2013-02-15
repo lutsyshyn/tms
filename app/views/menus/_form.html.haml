@@ -1,0 +1,22 @@
+= form_for @menu do |f|
+  = render 'shared/error_messages', object: f.object
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :show_without_user, 'Check if under this menu only unassigned tickets should be listed'
+    = f.check_box :show_without_user
+  .field
+    = f.label :position
+    = f.text_field :position
+
+  %p Under this menu tickets with following statuses will be listed:
+  - @statuses.each do |status|
+    .field
+      = status.name
+      = check_box_tag "menu[status_ids][]", status.id, @menu.statuses.include?(status)
+  = hidden_field_tag "menu[status_ids][]", ""
+  .actions
+    = f.submit 'Save'
+
+

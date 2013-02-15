@@ -1,0 +1,15 @@
+= form_for @status do |f|
+  = render 'shared/error_messages', object: f.object
+  .field
+    = f.label :name
+    = f.text_field :name
+  %p Tickets with this status will be visible under following menus:
+  - @menus.each do |menu|
+    .field
+      = menu.name
+      = check_box_tag "status[menu_ids][]", menu.id, @status.menus.include?(menu)
+  = hidden_field_tag "status[menu_ids][]", ""
+
+
+  .actions
+    = f.submit 'Save'

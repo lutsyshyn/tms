@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Text:
+  = @response.text
+%p
+  %b Status:
+  = @response.status
+%p
+  %b User:
+  = @response.user_id
+%p
+  %b Ticket:
+  = @response.ticket_id
+
+= link_to 'Edit', edit_response_path(@response)
+\|
+= link_to 'Back', responses_path

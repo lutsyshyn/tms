@@ -1,0 +1,17 @@
+.span6
+  %h1 Menus
+  %table.table.table-striped
+    %tr
+      %th Menu name
+      %th Position
+      %th
+      %th
+
+    - @menus.each do |menu|
+      %tr
+        %td= menu.name
+        %td= menu.position
+        %td= link_to 'Edit', edit_menu_path(menu)
+        %td= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' }
+
+  = link_to 'New Menu', new_menu_path, class: "btn btn-primary"

@@ -1,0 +1,63 @@
+.row
+  .span6
+    %table.table.table-condensed.table-striped
+      %tr
+        %td
+          %b Created:
+          = @ticket.created_at.to_formatted_s(:long)
+      %tr
+        %td
+          %b Last response:
+          = @ticket.last_response_time if @ticket.responses.first.persisted?
+      %tr
+        %td
+          %b Reference:
+          = @ticket.reference
+      %tr
+        %td
+          %b Status:
+          = status_label(@ticket.status.name)
+      %tr
+        %td
+          %b Department:
+          = @ticket.department.name
+      %tr
+        %td
+          %b Customer name:
+          = @ticket.customer_name
+      %tr
+        %td
+          %b Customer email:
+          = @ticket.customer_email
+      -if @ticket.user
+        %tr
+          %td
+            %b Staff owner:
+            = @ticket.user.username
+
+.row
+  .span12.ticket-body
+    %h4
+      = @ticket.subject
+    = @ticket.body
+
+- if @ticket.responses.count >= 1
+  = render @ticket.responses
+.row
+  .span12
+    - if user_signed_in?
+      - if current_user.id == @ticket.user_id
+        = render 'responses/form'
+        = link_to 'Disown', disown_ticket_path(@ticket)
+        \ ||
+        = link_to 'Back', tickets_path
+      - elsif @ticket.user_id.blank?
+        = link_to 'Take ownership', take_ownership_ticket_path(@ticket)
+        \ ||
+        = link_to 'Back', tickets_path
+      - else
+        %p Ticket is owned by another staff member
+    - else
+      = render 'responses/form' unless @ticket.locked_for_customer_input?
+
+

@@ -1,0 +1,15 @@
+Dear #{@response.ticket.customer_name},
+===============================================
+= "\n"
+Your ticket was responded or/and changed it's status.
+= "\n"
+Ticket status: #{@response.ticket.status.name}
+- if @response.text.present?
+  = "\n"
+  Response to your ticket:
+  = @response.text
+= "\n"
+You can view it on the following address:
+#{@url}
+= "\n"
+Have a nice day.

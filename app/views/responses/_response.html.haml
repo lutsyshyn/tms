@@ -1,0 +1,22 @@
+-if response.persisted?
+  .row
+    .span12.response
+      .row
+        .span12.head
+          .span4
+            - if response.user.present?
+              Staff:
+              = response.user.username.capitalize
+            - else
+              Customer:
+              = response.ticket.customer_name
+          .span3
+            Date:
+            = response.created_at.to_formatted_s(:long)
+          .span3
+            - if response.status.present?
+              Status:
+              = status_label(response.status.name)
+      .row
+        .span12.body
+          = response.text

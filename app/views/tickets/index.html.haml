@@ -1,0 +1,26 @@
+.row
+  .span12
+    = will_paginate @tickets
+    %table.table.table-condensed.table-striped.tickets
+      %tr
+        %th Subject
+        %th Status
+        %th Department
+        %th Staff owner
+        -#%th Created
+        %th Last response
+        %th ID
+        %th
+
+      - @tickets.each do |ticket|
+        %tr
+          %td= ticket.subject
+          %td= status_label(ticket.status.name).html_safe
+          %td= ticket.department.name
+          %td= ticket.user.username if ticket.user.present?
+          -#%td= time_ago_in_words(ticket.created_at)
+          %td= time_ago_in_words(ticket.responses.last.created_at) if ticket.responses.present?
+          %td= ticket.reference
+          %td= link_to 'Show', ticket
+
+    = will_paginate @tickets

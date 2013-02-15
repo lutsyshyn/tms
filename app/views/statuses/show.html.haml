@@ -1,0 +1,16 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @status.name
+%p
+  %b Shown in following menus:
+  %br
+  -@status.menus.each do |menu|
+    = menu.name
+    %br
+
+
+= link_to 'Edit', edit_status_path(@status)
+\|
+= link_to 'Back', statuses_path
